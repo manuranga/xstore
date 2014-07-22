@@ -1,0 +1,70 @@
+<%
+//TODO: fix for tenanted and revers proxied scenario.
+
+include_once('/lib/units.jag');
+(function () {
+
+    var elements, dir, i, j, unitDef, routes;
+    var unitName;
+    var pathDef;
+
+
+    var getType = function (path) {
+        var index = path.lastIndexOf('.');
+        var ext = index < path.length ? path.substring(index + 1) : '';
+        switch (ext) {
+            case 'js':
+                return 'application/javascript';
+            case 'css':
+                return 'text/css';
+            case 'html':
+                return 'text/html';
+            case 'png':
+                return 'image/png';
+            case 'gif':
+                return 'image/gif';
+            case 'jpeg':
+                return 'image/jpeg';
+            case 'jpg':
+                return 'image/jpg';
+            default :
+                return 'text/plain';
+        }
+    };
+
+    var rendered = false;
+    var uri = request.getRequestURI();
+    var uriMatcher = new URIMatcher(uri);
+    var unitDirs = new File("../units").listFiles();
+    for (i = 0; i < unitDirs.length; i++) {
+        dir = unitDirs[i];
+        if (dir.isDirectory()) {
+            unitName = dir.getName();
+            unitDef = require("../units/" + unitName + "/unit.json");
+            routes = unitDef['routes'] || [];
+            for (j = 0; j < routes.length; j++) {
+                pathDef = routes[j];
+                elements = uriMatcher.match("/{appname}/" + pathDef.path);
+                if (elements != null) {
+                    if (pathDef.layout) {
+                        fillZone('main', unitName);
+                        renderPage(pathDef.layout);
+                        rendered = true;
+                    } else if (pathDef.api) {
+                        include("../units/" + unitName + "/" + pathDef.api);
+                        rendered = true;
+                    }
+                }
+            }
+        }
+    }
+    if (!rendered) {
+        response.addHeader('Content-type', getType(uri));
+        var file = new File(uri.substring(uri.indexOf('/', 1)));
+        file.open('r');
+        print(file.getStream());
+        file.close();
+    }
+
+})();
+%>

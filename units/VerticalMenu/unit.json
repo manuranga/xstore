@@ -1,0 +1,26 @@
+{
+    "pageInputs": {
+        "menu": {
+            "items": {
+                "properties": {
+                    "subMenu": {
+                        "items": {
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "title": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        }
+    }
+}

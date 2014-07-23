@@ -1,9 +1,0 @@
-{
-    "weight": 100,
-    "routes": [
-        {
-            "path": "apis",
-            "layout": "left-navigation"
-        }
-    ]
-}

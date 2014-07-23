@@ -1,0 +1,26 @@
+<div >
+      <%
+       new Log().info(model);
+        var groups = model.groups;
+        for (var i = 0; i < groups.length ; i++) {
+            var menus = groups[i].menus;
+       %>
+       <ul class="nav nav-sidebar">
+       <%
+            for (var j = 0; j < menus.length ; j++) {
+                var title = menus[j].title;
+                var link = menus[j].link;
+                %>
+                <li><a href="<%= link %>" class="active">
+                    <%= title %>
+                  </a></li>
+                <%
+            }
+       %>
+       </ul>
+       <%
+        }
+       %>
+  </ul>
+</div>
+

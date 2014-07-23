@@ -1,0 +1,26 @@
+{
+    "groups": [
+        {
+            "menus": [
+                {
+                    "link": "test1.jag",
+                    "title": "My Test1 Link"
+                },
+                {
+                    "link": "test2.jag",
+                    "title": "My Test2 Link"
+                }
+            ]
+        },
+        {
+            "menus": [
+                {
+                    "link": "test3.jag",
+                    "title": "My Test3 Link"
+                }
+            ],
+            "title": "Test"
+        }
+    ],
+    "title": "Design"
+}

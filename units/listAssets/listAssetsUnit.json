@@ -1,0 +1,13 @@
+{
+    "weight": 100,
+    "routes": [
+        {
+            "path": [""],
+            "layout": "left-navigation"
+        },
+        {
+            "path": ["assets"],
+            "layout": "left-navigation"
+        }
+    ]
+}

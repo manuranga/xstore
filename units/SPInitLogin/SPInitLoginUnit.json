@@ -1,0 +1,16 @@
+{
+    "weight": 100,
+    "widget": {
+        "zone": "upperRight"
+    },
+    "routes": [
+        {
+            "path": "login",
+            "api": "SAMLRequestBuilder.jag"
+        },
+        {
+            "path": "acs",
+            "api": "AssertionConsumer.jag"
+        }
+    ]
+}

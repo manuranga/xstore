@@ -65,7 +65,16 @@ include_once('/lib/units.jag');
             fillZone('left', 'VerticalMenu');
             renderPage(matchedPathDef.layout);
         } else if (matchedPathDef.api) {
-            include('../units/' + matchedUnit + '/' + matchedPathDef.api);
+            model = {};
+            var controllerPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + 'Controller.js';
+            if (new File(controllerPath).isExists()){
+                require(controllerPath);
+            }
+            var viewPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + 'View.jag';
+            if (new File(viewPath).isExists()){
+                include(viewPath);
+            }
+
         }
     } else {
         var file = new File(uri.substring(uri.indexOf('/', 1)));

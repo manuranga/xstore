@@ -2,11 +2,11 @@
     "weight": 100,
     "routes": [
         {
-            "path": [""],
+            "path": "",
             "layout": "left-navigation"
         },
         {
-            "path": ["assets"],
+            "path": "assets",
             "layout": "left-navigation"
         }
     ]

@@ -11,7 +11,8 @@ var model = null; //due to a jaggery but the function scope variables are on inh
  */
 function renderUnit(unitName) {
     if (unitName != null) {
-        model = modelOfUnit[unitName];
+        model = getModel(unitName);
+        require('/units/' + unitName + '/' + unitName + 'Controller.js');
         include('/units/' + unitName + '/' + unitName + 'View.jag');
     }
 }
@@ -27,6 +28,7 @@ function injectUnits() {
     var unitDirs = new File('../units').listFiles();
     var units = [];
     var injectorPaths = [];
+    //TODO: don't iterate all the dirs, cache all the js in to one file.
     for (var i = 0; i < unitDirs.length; i++) {
         var dir = unitDirs[i];
         if (dir.isDirectory()) {
@@ -55,11 +57,9 @@ function initLayout() {
     for (zoneName in unitsOfZone) {
         unitName = unitsOfZone[zoneName];
         model = modelOfUnit[unitName] || {};
+        require('/units/' + unitName + '/' + unitName + 'Controller.js');
         try {
-
         } catch (e) {
-            new Log().info('/units/' + unitName + '/' + unitName + 'Controller.js');
-            require('/units/' + unitName + '/' + unitName + 'Controller.js');
         }
         modelOfUnit[unitName] = model;
     }
@@ -68,7 +68,10 @@ function initLayout() {
 
 function defineZone(zoneName) {
     var unitName = unitsOfZone[zoneName];
-    renderUnit(unitName);
+    if (unitName != null) {
+        model = getModel(unitName);
+        include('/units/' + unitName + '/' + unitName + 'View.jag');
+    }
 }
 
 function getModel(unitName) {

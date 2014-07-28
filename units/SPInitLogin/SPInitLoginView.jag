@@ -1,1 +1,5 @@
-login
+<% if (model.isLogged) {
+    renderUnit('MyProfile');
+} else { %>
+    <a href="login">Login</a>
+<%}%>

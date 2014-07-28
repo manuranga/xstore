@@ -6,11 +6,11 @@
     "routes": [
         {
             "path": "login",
-            "api": "SAMLRequestBuilder.jag"
+            "api": "SAMLRequestBuilder"
         },
         {
             "path": "acs",
-            "api": "AssertionConsumer.jag"
+            "api": "AssertionConsumer"
         }
     ]
 }

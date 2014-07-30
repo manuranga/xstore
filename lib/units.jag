@@ -24,44 +24,6 @@ function fillZone(zoneName, unitName) {
     unitsOfZone[zoneName] = unitName;
 }
 
-function injectUnits() {
-    var injectorPath;
-    var unitDirs = new File('../units').listFiles();
-    var units = [];
-    var injectorPaths = [];
-    var unitDef ,unitDefPath;
-    var injectorFile;
-    //TODO: don't iterate all the dirs, cache all the js in to one file.
-    for (var i = 0; i < unitDirs.length; i++) {
-        var dir = unitDirs[i];
-        if (dir.isDirectory()) {
-            injectorPath = "../units/" + dir.getName() + '/' + dir.getName() + "Injector.js";
-            injectorFile = new File(injectorPath);
-
-            unitDefPath = "../units/" + dir.getName() + '/' + dir.getName() + "Unit.json";
-            if (new File(unitDefPath).isExists()) {
-                unitDef = require(unitDefPath);
-            } else {
-                unitDef = {};
-            }
-
-            if (injectorFile.isExists()) {
-                var sortableElm = {'path': injectorPath, 'weight': (unitDef.weight || 0 )};
-                injectorPaths.push(sortableElm);
-            }
-        }
-    }
-
-    injectorPaths.sort(function (a, b) {
-        return b.weight - a.weight;
-    });
-
-    for (i = 0; i < injectorPaths.length; i++) {
-        require(injectorPaths[i].path);
-    }
-
-}
-
 function initLayout() {
     var unitName, zoneName;
     for (zoneName in unitsOfZone) {
@@ -73,7 +35,7 @@ function initLayout() {
         }
         modelOfUnit[unitName] = model;
     }
-    injectUnits();
+    require('../generated/aggregatedInjectors.js');
 }
 
 function defineZone(zoneName) {

@@ -2,6 +2,49 @@
 //TODO: fix for tenanted and revers proxied scenario.
 
 include_once('/lib/units.jag');
+
+function generateAggregatedInjectors() {
+    var injectorPath, unitDef , unitDefPath, injectorFile;
+    var injectors = new File('../generated/aggregatedInjectors.js');
+    var unitDirs = new File('../units').listFiles();
+    var units = [];
+    var injectorPaths = [];
+    injectors.open('w');
+
+    for (var i = 0; i < unitDirs.length; i++) {
+        var dir = unitDirs[i];
+        if (dir.isDirectory()) {
+            injectorPath = "../units/" + dir.getName() + '/' + dir.getName() + "Injector.js";
+            injectorFile = new File(injectorPath);
+
+            unitDefPath = "../units/" + dir.getName() + '/' + dir.getName() + "Unit.json";
+            if (new File(unitDefPath).isExists()) {
+                unitDef = require(unitDefPath);
+            } else {
+                unitDef = {};
+            }
+
+            if (injectorFile.isExists()) {
+                var sortableElm = {'file': injectorFile, 'weight': (unitDef.weight || 0 )};
+                injectorPaths.push(sortableElm);
+            }
+        }
+    }
+
+    injectorPaths.sort(function (a, b) {
+        return b.weight - a.weight;
+    });
+    for (i = 0; i < injectorPaths.length; i++) {
+        //new Log().info(injectorPaths[i].file);
+        injectorFile = injectorPaths[i].file;
+        injectorFile.open('r');
+        injectors.write(injectorFile.getStream());
+        injectorFile.close();
+    }
+
+    injectors.close();
+}
+
 (function () {
 
     var elements, dir, i, j, unitDef, routes;
@@ -79,6 +122,7 @@ include_once('/lib/units.jag');
     if (matchedUnit != null) {
         if (matchedPathDef.layout) {
             fillZone('main', matchedUnit);
+            generateAggregatedInjectors();
             renderPage(matchedPathDef.layout);
         } else if (matchedPathDef.api) {
             model = {};

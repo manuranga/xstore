@@ -1,1 +1,0 @@
-new Log().info('ddddd');

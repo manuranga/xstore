@@ -28,33 +28,35 @@ initLayout();
 <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container-liquid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">API Store</a>
+
+    <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-liquid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">API Store</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <% defineZone('upperRight'); %>
+          </li>
+        </ul>
+      </div>
     </div>
-
-      <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <% defineZone('upperRight'); %>
-                </li>
-
-      </ul>
-  </div>
-</div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.js"><\/script>')</script>
 
     <div id="wrap">
       <div class="container-fluid">
-        <div class="col-sm-3 col-md-2 sidebar">
-         <% defineZone('left'); %>
-        </div>
         <div class="row">
+
+          <div class="col-sm-3 col-md-2 sidebar">
+           <% defineZone('left'); %>
+          </div>
+
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <% defineZone('main'); %>
           </div>

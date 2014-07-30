@@ -1,16 +1,16 @@
-<ol>
+<div class="row">
       <%
         var assets = model.assets;
         for (var i = 0; i < assets.length ; i++) {
             var asset = assets[i];
        %>
-       <div>
-           <img src="https://localhost:9443/store/storage/gadget/<%= asset.id %>/<%= asset.attributes.images_thumbnail %>" />
-           <p>
+       <div  class="col-md-3 " style="min-height:280px;max-height:280px;  "/>
+           <img class="center-block" src="https://localhost:9443/store/storage/gadget/<%= asset.id %>/<%= asset.attributes.images_thumbnail %>" />
+           <p class="text-center">
                <%= asset.attributes.overview_name %>
            </p>
        </div>
        <%
         }
        %>
-</ol>
+</div>

@@ -37,7 +37,7 @@ include_once('/lib/units.jag');
     var uri = request.getRequestURI();
     var uriMatcher = new URIMatcher(uri);
     var unitDirs = new File('../units').listFiles();
-    var widget;
+    var widget, unitDefPath;
 
     //TODO: This is a hack to skip static content for now.
     //      review and remove if necessary.
@@ -47,7 +47,12 @@ include_once('/lib/units.jag');
             dir = unitDirs[i];
             if (dir.isDirectory()) {
                 unitName = dir.getName();
-                unitDef = require('../units/' + unitName + '/' + unitName + 'Unit.json');
+                unitDefPath = '../units/' + unitName + '/' + unitName + 'Unit.json';
+                if (new File(unitDefPath).isExists()) {
+                    unitDef = require(unitDefPath);
+                } else {
+                    unitDef = {};
+                }
                 routes = unitDef['routes'] || [];
                 for (j = 0; j < routes.length; j++) {
                     pathDef = routes[j];
@@ -62,7 +67,7 @@ include_once('/lib/units.jag');
                     }
                 }
                 widget = unitDef['widget'];
-                if(widget){
+                if (widget) {
                     fillZone(widget['zone'], unitName);
                 }
 

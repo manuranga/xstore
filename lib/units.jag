@@ -25,16 +25,26 @@ function fillZone(zoneName, unitName) {
 }
 
 function injectUnits() {
+    var injectorPath;
     var unitDirs = new File('../units').listFiles();
     var units = [];
     var injectorPaths = [];
+    var unitDef ,unitDefPath;
+    var injectorFile;
     //TODO: don't iterate all the dirs, cache all the js in to one file.
     for (var i = 0; i < unitDirs.length; i++) {
         var dir = unitDirs[i];
         if (dir.isDirectory()) {
-            var injectorPath = "../units/" + dir.getName() + '/' + dir.getName() + "Injector.js";
-            var injectorFile = new File(injectorPath);
-            var unitDef = require("../units/" + dir.getName() + '/' + dir.getName() + "Unit.json");
+            injectorPath = "../units/" + dir.getName() + '/' + dir.getName() + "Injector.js";
+            injectorFile = new File(injectorPath);
+
+            unitDefPath = "../units/" + dir.getName() + '/' + dir.getName() + "Unit.json";
+            if (new File(unitDefPath).isExists()) {
+                unitDef = require(unitDefPath);
+            } else {
+                unitDef = {};
+            }
+
             if (injectorFile.isExists()) {
                 var sortableElm = {'path': injectorPath, 'weight': (unitDef.weight || 0 )};
                 injectorPaths.push(sortableElm);

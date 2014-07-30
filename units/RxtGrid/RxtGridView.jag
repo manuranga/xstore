@@ -1,1 +1,16 @@
-grid view
+<ol>
+      <%
+        var assets = model.assets;
+        for (var i = 0; i < assets.length ; i++) {
+            var asset = assets[i];
+       %>
+       <div>
+           <img src="https://localhost:9443/store/storage/gadget/<%= asset.id %>/<%= asset.attributes.images_thumbnail %>" />
+           <p>
+               <%= asset.attributes.overview_name %>
+           </p>
+       </div>
+       <%
+        }
+       %>
+</ol>

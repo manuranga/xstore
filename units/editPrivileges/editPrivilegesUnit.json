@@ -1,0 +1,9 @@
+{
+    "weight": 200,
+    "routes": [
+        {
+            "path": "roles",
+            "layout": "left-navigation"
+        }
+    ]
+}

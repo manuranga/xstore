@@ -17,7 +17,7 @@ function generateAggregatedInjectors() {
             injectorPath = "../units/" + dir.getName() + '/' + dir.getName() + "Injector.js";
             injectorFile = new File(injectorPath);
 
-            unitDefPath = "../units/" + dir.getName() + '/' + dir.getName() + "Unit.json";
+            unitDefPath = "../units/" + dir.getName() + '/' + dir.getName() + ".json";
             if (new File(unitDefPath).isExists()) {
                 unitDef = require(unitDefPath);
             } else {
@@ -90,7 +90,7 @@ function generateAggregatedInjectors() {
             dir = unitDirs[i];
             if (dir.isDirectory()) {
                 unitName = dir.getName();
-                unitDefPath = '../units/' + unitName + '/' + unitName + 'Unit.json';
+                unitDefPath = '../units/' + unitName + '/' + unitName + '.json';
                 if (new File(unitDefPath).isExists()) {
                     unitDef = require(unitDefPath);
                 } else {

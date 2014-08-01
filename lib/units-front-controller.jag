@@ -126,11 +126,11 @@ function generateAggregatedInjectors() {
             renderPage(matchedPathDef.layout);
         } else if (matchedPathDef.api) {
             model = {};
-            var controllerPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + 'Controller.js';
+            var controllerPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + '.js';
             if (new File(controllerPath).isExists()) {
                 require(controllerPath);
             }
-            var viewPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + 'View.jag';
+            var viewPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + '.jag';
             if (new File(viewPath).isExists()) {
                 include(viewPath);
             }

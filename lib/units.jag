@@ -12,8 +12,8 @@ var model = null; //due to a jaggery but the function scope variables are on inh
 function renderUnit(unitName) {
     if (unitName != null) {
         model = getModel(unitName);
-        require('/units/' + unitName + '/' + unitName + 'Controller.js');
-        include('/units/' + unitName + '/' + unitName + 'View.jag');
+        require('/units/' + unitName + '/' + unitName + '.js');
+        include('/units/' + unitName + '/' + unitName + '.jag');
     }
 }
 
@@ -29,7 +29,7 @@ function initLayout() {
     for (zoneName in unitsOfZone) {
         unitName = unitsOfZone[zoneName];
         model = modelOfUnit[unitName] || {};
-        require('/units/' + unitName + '/' + unitName + 'Controller.js');
+        require('/units/' + unitName + '/' + unitName + '.js');
         try {
         } catch (e) {
         }
@@ -42,7 +42,7 @@ function defineZone(zoneName) {
     var unitName = unitsOfZone[zoneName];
     if (unitName != null) {
         model = getModel(unitName);
-        include('/units/' + unitName + '/' + unitName + 'View.jag');
+        include('/units/' + unitName + '/' + unitName + '.jag');
     }
 }
 

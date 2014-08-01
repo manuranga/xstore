@@ -12,7 +12,6 @@ for (var i = 0; i < users.length; i++) {
     userRoleFlags = [];
     for (var j = 0; j < roles.length; j++) {
         var role = String(roles[j]);
-        new Log().info('is ' +  role + ' in ' + userRoles + ' = ' + userRoles.indexOf(role));
         userRoleFlags.push(userRoles.indexOf(role) >= 0);
     }
     userMatrix.push({name: user, roles: userRoleFlags })

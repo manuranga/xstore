@@ -62,19 +62,19 @@ function defineZone(zoneName) {
 
     if (unitName != null) {
         model = getModel(unitName);
+    }
 
-        //TODO: move to debug
-        var debug = request.getParameter('debug');
-        if (debug == 'overlay') {
-            include('/units/' + unitName + '/' + unitName + '.jag');
-            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
-        } else if (debug == 'json') {
-            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
-        } else if (debug == 'zones') {
-            print('<div  class="zone-overlay">' + zoneName + '</div>');
-        } else {
-            include('/units/' + unitName + '/' + unitName + '.jag');
-        }
+    //TODO: move to debug
+    var debug = request.getParameter('debug');
+    if (debug == 'overlay') {
+        unitName && include('/units/' + unitName + '/' + unitName + '.jag');
+        print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
+    } else if (debug == 'json') {
+        print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
+    } else if (debug == 'zones') {
+        print('<div  class="zone-overlay">' + zoneName + '</div>');
+    } else {
+        unitName && include('/units/' + unitName + '/' + unitName + '.jag');
     }
 }
 
@@ -95,7 +95,7 @@ function defineCSSZone(unitName) {
     var cssLinks = model.cssLinks || ['debug/css/debug-overlay.css'];
     for (var i = 0; i < cssLinks.length; i++) {
         var css = cssLinks[i];
-        print('<link rel="stylesheet" href="'+ css +'">');
+        print('<link rel="stylesheet" href="' + css + '">');
     }
 }
 

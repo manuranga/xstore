@@ -3,6 +3,7 @@
 
 include_once('/lib/units.jag');
 
+
 function generateAggregatedInjectors() {
     var injectorPath, unitDef , unitDefPath, injectorFile;
     var injectors = new File('../generated/aggregatedInjectors.js');
@@ -118,12 +119,49 @@ function generateAggregatedInjectors() {
         }
     }
 
+    var prettyPrintReplace = function (match, pIndent, pKey, pVal, pEnd) {
+        var key = '<span class=json-key>';
+        var val = '<span class=json-value>';
+        var str = '<span class=json-string>';
+        var r = pIndent || '';
+        if (pKey)
+            r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+        if (pVal)
+            r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+        return r + (pEnd || '');
+    };
+
+    var prettyPrint = function (obj) {
+        var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+        return JSON.stringify(parse(stringify(obj)), null, 3)
+                .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(jsonLine, prettyPrintReplace);
+    };
+
 
     if (matchedUnit != null) {
         if (matchedPathDef.layout) {
             var debug = request.getParameter('debug');
-            if(debug){
+            if (debug) {
                 addCssLink('debug/css/debug-overlay.css');
+                var originalDefineZone = defineZone;
+                defineZone = function (zoneName) {
+                    var unitName = unitsOfZone[zoneName];
+                    if (unitName != null) {
+                        model = getModel(unitName);
+                        if (debug == 'overlay') {
+                            unitName && include('/units/' + unitName + '/' + unitName + '.jag');
+                            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
+                        } else if (debug == 'json') {
+                            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
+                        }
+                    }
+                    if (debug == 'zones') {
+                        print('<div  class="zone-overlay">' + zoneName + '</div>');
+                    }
+                    //response.sendError(500,'Unsupported debug mode "'+debug+'". should be one of [overlay, json, zones]');
+                };
             }
 
             fillZone('main', matchedUnit);

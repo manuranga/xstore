@@ -41,40 +41,10 @@ function initLayout() {
 
 function defineZone(zoneName) {
     var unitName = unitsOfZone[zoneName];
-    var replacer = function (match, pIndent, pKey, pVal, pEnd) {
-        var key = '<span class=json-key>';
-        var val = '<span class=json-value>';
-        var str = '<span class=json-string>';
-        var r = pIndent || '';
-        if (pKey)
-            r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
-        if (pVal)
-            r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
-        return r + (pEnd || '');
-    };
-    var prettyPrint = function (obj) {
-        var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
-        return JSON.stringify(parse(stringify(obj)), null, 3)
-                .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
-                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                .replace(jsonLine, replacer);
-    };
-
     if (unitName != null) {
         model = getModel(unitName);
-    }
-
-    //TODO: move to debug
-    var debug = request.getParameter('debug');
-    if (debug == 'overlay') {
-        unitName && include('/units/' + unitName + '/' + unitName + '.jag');
-        print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
-    } else if (debug == 'json') {
-        print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
-    } else if (debug == 'zones') {
-        print('<div  class="zone-overlay">' + zoneName + '</div>');
-    } else {
-        unitName && include('/units/' + unitName + '/' + unitName + '.jag');
+        include('/units/' + unitName + '/' + unitName + '.jag');
+// print('<div style=" width: 100%; height: 100%; position: absolute; top: 0; left: 0;">' + stringify(model) + '</div>');
     }
 }
 

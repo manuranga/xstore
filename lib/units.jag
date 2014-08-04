@@ -29,9 +29,10 @@ function initLayout() {
     for (zoneName in unitsOfZone) {
         unitName = unitsOfZone[zoneName];
         model = modelOfUnit[unitName] || {};
-        require('/units/' + unitName + '/' + unitName + '.js');
-        try {
-        } catch (e) {
+        //TODO: don't check for existence every time.;
+        var controllerPath = '/units/' + unitName + '/' + unitName + '.js';
+        if (new File(controllerPath).isExists()) {
+            require(controllerPath);
         }
         modelOfUnit[unitName] = model;
     }
@@ -40,9 +41,40 @@ function initLayout() {
 
 function defineZone(zoneName) {
     var unitName = unitsOfZone[zoneName];
+    var replacer = function (match, pIndent, pKey, pVal, pEnd) {
+        var key = '<span class=json-key>';
+        var val = '<span class=json-value>';
+        var str = '<span class=json-string>';
+        var r = pIndent || '';
+        if (pKey)
+            r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+        if (pVal)
+            r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+        return r + (pEnd || '');
+    };
+    var prettyPrint = function (obj) {
+        var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+        return JSON.stringify(parse(stringify(obj)), null, 3)
+                .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(jsonLine, replacer);
+    };
+
     if (unitName != null) {
         model = getModel(unitName);
-        include('/units/' + unitName + '/' + unitName + '.jag');
+
+        //TODO: move to debug
+        var debug = request.getParameter('debug');
+        if (debug == 'overlay') {
+            include('/units/' + unitName + '/' + unitName + '.jag');
+            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
+        } else if (debug == 'json') {
+            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
+        } else if (debug == 'zones') {
+            print('<div  class="zone-overlay">' + zoneName + '</div>');
+        } else {
+            include('/units/' + unitName + '/' + unitName + '.jag');
+        }
     }
 }
 
@@ -57,6 +89,14 @@ function getModel(unitName) {
 
 function renderPage(layoutName) {
     include('/layouts/' + layoutName + '.jag');
+}
+
+function defineCSSZone(unitName) {
+    var cssLinks = model.cssLinks || ['debug/css/debug-overlay.css'];
+    for (var i = 0; i < cssLinks.length; i++) {
+        var css = cssLinks[i];
+        print('<link rel="stylesheet" href="'+ css +'">');
+    }
 }
 
 function sortByKey(array, key) {

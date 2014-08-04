@@ -121,6 +121,11 @@ function generateAggregatedInjectors() {
 
     if (matchedUnit != null) {
         if (matchedPathDef.layout) {
+            var debug = request.getParameter('debug');
+            if(debug){
+                addCssLink('debug/css/debug-overlay.css');
+            }
+
             fillZone('main', matchedUnit);
             generateAggregatedInjectors();
             renderPage(matchedPathDef.layout);

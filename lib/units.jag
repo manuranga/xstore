@@ -91,12 +91,16 @@ function renderPage(layoutName) {
     include('/layouts/' + layoutName + '.jag');
 }
 
-function defineCSSZone(unitName) {
-    var cssLinks = model.cssLinks || ['debug/css/debug-overlay.css'];
+function defineCSSZone() {
+    var cssLinks = getModel('css').links || [];
     for (var i = 0; i < cssLinks.length; i++) {
         var css = cssLinks[i];
         print('<link rel="stylesheet" href="' + css + '">');
     }
+}
+
+function addCssLink(link) {
+    mergeJson(getModel('css'), {links: [link]});
 }
 
 function sortByKey(array, key) {

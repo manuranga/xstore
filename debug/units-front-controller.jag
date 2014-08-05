@@ -6,8 +6,8 @@ include_once('/lib/units.jag');
 
 function generateAggregatedInjectors() {
     var injectorPath, unitDef , unitDefPath, injectorFile;
-    var injectors = new File('../generated/aggregatedInjectors.js');
-    var unitDirs = new File('../units').listFiles();
+    var injectors = new File('/generated/aggregatedInjectors.js');
+    var unitDirs = new File('/units').listFiles();
     var units = [];
     var injectorPaths = [];
     injectors.open('w');
@@ -15,10 +15,10 @@ function generateAggregatedInjectors() {
     for (var i = 0; i < unitDirs.length; i++) {
         var dir = unitDirs[i];
         if (dir.isDirectory()) {
-            injectorPath = "../units/" + dir.getName() + '/' + dir.getName() + "Injector.js";
+            injectorPath = "/units/" + dir.getName() + '/' + dir.getName() + "Injector.js";
             injectorFile = new File(injectorPath);
 
-            unitDefPath = "../units/" + dir.getName() + '/' + dir.getName() + ".json";
+            unitDefPath = "/units/" + dir.getName() + '/' + dir.getName() + ".json";
             if (new File(unitDefPath).isExists()) {
                 unitDef = require(unitDefPath);
             } else {
@@ -80,18 +80,19 @@ function generateAggregatedInjectors() {
     var matchedUnit = null;
     var uri = request.getRequestURI();
     var uriMatcher = new URIMatcher(uri);
-    var unitDirs = new File('../units').listFiles();
+    var unitDirs = new File('/units').listFiles();
     var widget, unitDefPath;
 
+    var requestType = uri.split('/')[2];
+    if (requestType == 'debug') {
     //TODO: This is a hack to skip static content for now.
     //      review and remove if necessary.
-    var requestType = uri.split('/')[2];
-    if (requestType != 'js' && requestType != 'css') {
+    } else if (requestType != 'js' && requestType != 'css') {
         for (i = 0; i < unitDirs.length; i++) {
             dir = unitDirs[i];
             if (dir.isDirectory()) {
                 unitName = dir.getName();
-                unitDefPath = '../units/' + unitName + '/' + unitName + '.json';
+                unitDefPath = '/units/' + unitName + '/' + unitName + '.json';
                 if (new File(unitDefPath).isExists()) {
                     unitDef = require(unitDefPath);
                 } else {
@@ -169,11 +170,11 @@ function generateAggregatedInjectors() {
             renderPage(matchedPathDef.layout);
         } else if (matchedPathDef.api) {
             model = {};
-            var controllerPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + '.js';
+            var controllerPath = '/units/' + matchedUnit + '/' + matchedPathDef.api + '.js';
             if (new File(controllerPath).isExists()) {
                 require(controllerPath);
             }
-            var viewPath = '../units/' + matchedUnit + '/' + matchedPathDef.api + '.jag';
+            var viewPath = '/units/' + matchedUnit + '/' + matchedPathDef.api + '.jag';
             if (new File(viewPath).isExists()) {
                 include(viewPath);
             }

@@ -5,11 +5,11 @@
     },
     "routes": [
         {
-            "path": "login",
+            "path": "/login",
             "api": "SAMLRequestBuilder"
         },
         {
-            "path": "acs",
+            "path": "/acs",
             "api": "AssertionConsumer"
         }
     ]

@@ -100,7 +100,7 @@ function generateAggregatedInjectors() {
                 routes = unitDef['routes'] || [];
                 for (j = 0; j < routes.length; j++) {
                     pathDef = routes[j];
-                    elements = uriMatcher.match('/{appname}/' + pathDef.path);
+                    elements = uriMatcher.match('/{appname}' + pathDef.path);
                     if (elements != null) {
                         if (matchedUnit != null) {
                             throw 'Conflicting paths for units ' + matchedUnit + ':' + matchedPathDef.path + ' and ' +

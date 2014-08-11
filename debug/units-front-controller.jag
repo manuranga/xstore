@@ -145,17 +145,25 @@ function generateAggregatedInjectors() {
         if (matchedPathDef.layout) {
             var debug = request.getParameter('debug');
             if (debug) {
+                var originalPrint = print;
+                var debugClass = 'json-section ' + ((debug == 'overlay') ? 'json-overlay' : '');
+
                 addCssLink('debug/css/debug-overlay.css');
                 var originalDefineZone = defineZone;
                 defineZone = function (zoneName) {
                     var unitName = unitsOfZone[zoneName];
                     if (unitName != null) {
                         model = getModel(unitName);
+                        originalPrint('<pre  class="' + debugClass + '"><code>' + unitName + ' = ' + prettyPrint(model));
                         if (debug == 'overlay') {
+                            originalPrint('</code></pre>');
                             unitName && include('/units/' + unitName + '/' + unitName + '.jag');
-                            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
                         } else if (debug == 'json') {
-                            print('<pre  class="json-overlay"><code>' + prettyPrint(model) + '</code></pre>');
+                            print = function () {
+                            };
+                            unitName && include('/units/' + unitName + '/' + unitName + '.jag');
+                            originalPrint('</code></pre>');
+                            print = originalPrint;
                         }
                     }
                     if (debug == 'zones') {
@@ -163,6 +171,14 @@ function generateAggregatedInjectors() {
                     }
                     //response.sendError(500,'Unsupported debug mode "'+debug+'". should be one of [overlay, json, zones]');
                 };
+
+
+                var originalRenderUnit = renderUnit;
+                renderUnit = function renderUnit(unitName) {
+                    new Log().info(unitName);
+                    originalRenderUnit(unitName);
+                    originalPrint('<pre  class="' + debugClass + '"><code>' + unitName + ' = ' + prettyPrint(model) + '</code></pre>');
+                }
             }
 
             fillZone('main', matchedUnit);

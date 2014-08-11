@@ -1,19 +1,26 @@
-.json-overlay {
-    width: 100%;
-    height: 100%;
-    position: absolute;
+.json-section {
     background: rgba(255, 255, 255, .6);
     top: 0;
-    left: 0;
-    padding: 0;
     margin: 0;
-    font-size: 13px;
-    line-height: 1.42857143;
     word-break: break-all;
     word-wrap: break-word;
+    font-size: 13px;
+    line-height: 1.42857143;
+}
+
+.json-overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    padding: 0;
     color: #333;
     border: 0;
     pointer-events: none;
+}
+
+.json-overlay .json-overlay{
+  color: red;
 }
 
 .zone-overlay  {
@@ -22,6 +29,7 @@
     text-align: center;
     font-weight:bold;
     background: rgba(255, 255, 0, .6);
+    overflow: auto;
 }
 
 .json-overlay code {

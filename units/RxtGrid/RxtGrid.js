@@ -1,5 +1,5 @@
 var userName = session.get("LOGGED_IN_USER");
-if(userName!=null){
+if (userName != null) {
     var es = require('store');
     es.server.sandbox({
         tenantId: -1234,
@@ -8,9 +8,9 @@ if(userName!=null){
         var asset = require('rxt').asset;
         var am = asset.createUserAssetManager(session, 'gadget');
         model.assets = am.list();
-
+        model.visible = true;
     });
-}else{
-    model.assets = {};
+} else {
+    model.assets = {visible: true};
 }
 

@@ -142,6 +142,7 @@ function generateAggregatedInjectors() {
 
 
     if (matchedUnit != null) {
+        application.put('appContext',new File('..').getName());
         if (matchedPathDef.layout) {
             var debug = request.getParameter('debug');
             if (debug) {

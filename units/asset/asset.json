@@ -1,0 +1,10 @@
+{
+    "weight": 101,
+    "routes": [
+
+        {
+            "path": "/asset/{id}",
+            "layout": "left-navigation"
+        }
+    ]
+}

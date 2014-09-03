@@ -1,0 +1,14 @@
+<li>
+    <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="wso2-icon fa fa-cogs"></i></a>
+    <div class="dropdown-menu dropdown-menu-right dropdown-caret dropdown-close wso2-ui-main-settings clearfix" id="wso2-ui-main-settings">
+        <div class="dropdown-header">
+            <i class="wso2-icon fa fa-cogs"></i>
+            UI Settings
+        </div>
+        <div class="dropdown-content">
+            <div class="checkbox">
+                <label><input type="checkbox" value="fixed-container"> Fixed Size</label>
+            </div>
+        </div>
+    </div>
+</li>

@@ -3,7 +3,7 @@
     "routes": [
         {
             "path": "/roles",
-            "layout": "left-navigation"
+            "layout": "main"
         }
     ]
 }

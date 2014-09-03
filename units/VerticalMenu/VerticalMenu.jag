@@ -1,24 +1,46 @@
-<div >
+<div id="leftmenu" class="leftmenu responsive collapse navbar-collapse">
+    <ul class="nav nav-main" style="top: 0px;">
+
       <%
         var groups = model.groups;
         for (var i = 0; i < groups.length ; i++) {
             var menus = groups[i].menus;
        %>
-       <ul class="nav nav-sidebar">
+
+       <li class="active hsub">
+            <a class="dropdown-toggle" href="#">
+                <i class="menu-icon fa fa-bar-chart-o"></i>
+                <span class="menu-text">Group Name</span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+            <ul class="submenu">
+
+
        <%
             for (var j = 0; j < menus.length ; j++) {
                 var title = menus[j].title;
                 var link = menus[j].link;
                 %>
-                <li><a href="<%= link %>" class="active">
-                    <%= title %>
-                  </a></li>
+                <li class="active">
+                    <a href="<%= link %>">
+                        <i class="menu-icon-sub fa fa-circle-o"></i>
+                        <%= title %>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
                 <%
             }
        %>
-       </ul>
+            </ul>
+       </li>
        <%
         }
        %>
+       </ul>
 </div>
 

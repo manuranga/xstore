@@ -1,5 +1,10 @@
 <% if (model.isLogged) {
     renderUnit('MyProfile');
 } else { %>
-    <a href="login">Login</a>
+<li>
+    <a  href="login" class="dropdown-toggle">
+        Login
+    </a>
+
+</li>
 <%}%>

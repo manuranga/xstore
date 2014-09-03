@@ -1,1 +1,20 @@
-<a><%=  model.userName %></a>
+<li>
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+        <img class="nav-user-photo" src="img/user.png" alt="Chanaka's Photo">
+        <span class="user-info"><small>Welcome,</small> Chanaka</span>
+        <i class="wso2-icon fa fa-caret-down"></i>
+    </a>
+
+    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+        <li>
+            <a href="#"><i class="wso2-icon fa fa-cog"></i>Settings</a>
+        </li>
+        <li>
+            <a href="#"><i class="wso2-icon fa fa-user"></i>Profile</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#"><i class="wso2-icon fa fa-power-off"></i><%=  model.userName %></a>
+        </li>
+    </ul>
+</li>

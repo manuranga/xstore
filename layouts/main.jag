@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<% initLayout(); %>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <title>WSO2 Developer Portal - UI</title>
+
+    <meta name="description" content="Static &amp; Dynamic Tables">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- main style file with bootstrap, font-awesome and custom overrides styles -->
+    <link rel="stylesheet" href="/<%= appContext %>/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lte IE 8]>
+    <script src="/<%= appContext %>/js/vendors/html5shiv.min.js"></script>
+    <script src="/<%= appContext %>/js/vendors/respond.min.js"></script>
+    <![endif]-->
+    <% defineCSSZone('head'); %>
+</head>
+
+<body class="no-skin">
+
+  <div id="header_nav" class="navbar navbar-fixed-top header-nav">
+    <div class="navbar-container" id="navbar-container">
+        <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#leftmenu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small>
+                    <img src="img/wso2-logo.png" /> API Store
+                </small>
+            </a>
+            <ul class="nav header-nav-left">
+                <li class="header-nav-search-form">
+                    <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                                <div class="dropdown">
+                                  <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-credit-card"></i>  <span class="caret"></span></a>
+                                  <ul role="menu" class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="#"><i class="fa fa-credit-card"></i>  APIs</a></li>
+                                    <li><a href="#"><i class="fa fa-table"></i>  Applications</a></li>
+                                  </ul>
+                                </div>
+                          </div>
+                          <input type="text" placeholder="Search APIs" class="form-control">
+                          <div class="input-group-addon"><button class="btn btn-primary "><i class="fa fa-search"></i></button></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="navbar-buttons navbar-header pull-right" role="navigation">
+            <ul class="nav header-nav-right">
+                <% defineZone('upperRight'); %>
+                <% defineZone('upperRight2'); %>
+
+            </ul>
+        </div>
+    </div>
+    <!-- /.navbar-container -->
+</div>
+
+
+
+<div class="main-container" id="main-container">
+
+
+    <% defineZone('left'); %>
+
+
+    <div class="main-content clearfix">
+        <% defineZone('main'); %>
+    </div>
+    <!-- /.page-content -->
+    <!-- /.main-content -->
+    <% defineZone('footer'); %>
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="footer-content">
+                    <span class="blue bolder">WSO2</span>
+                    &copy; 2013-2014
+            </div>
+        </div>
+    </div>
+
+<a href="#" id="btn-scroll-to-top" class="btn btn-primary">
+    <i class="wso2-icon fa fa-angle-double-up"></i>
+</a>
+</div>
+<!-- /.main-container -->
+<script src="/<%= appContext %>/js/vendors/jquery/jquery.min.js"></script>
+<script src="/<%= appContext %>/js/vendors/jquery/jquery-migrate.min.js"></script>
+<script src="/<%= appContext %>/js/vendors/jquery.validate/jquery.validate.min.js"></script>
+
+<!--Plugin to manage local storage, session storage etc. depending on the browser-->
+<script src="/<%= appContext %>/js/vendors/amplify/amplify.min.js"></script>
+<!-- wso2 settings handler -->
+<script src="/<%= appContext %>/js/wso2_ui_utils.js"></script>
+<script src="/<%= appContext %>/js/wso2_ui_init.js"></script>
+
+<script src="/<%= appContext %>/js/vendors/bootstrap/js/bootstrap.min.js"></script>
+<script src="/<%= appContext %>/js/vendors/prism/prism.js"></script>
+<link href="/<%= appContext %>/js/vendors/prism/prism.css" rel="stylesheet">
+
+</body>
+</html>

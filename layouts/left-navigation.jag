@@ -11,16 +11,13 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="/<%= appContext %>/css/bootstrap.min.css">
 <style>
     body {
         padding-top: 50px;
         padding-bottom: 20px;
     }
 </style>
-<link rel="stylesheet" href="/<%= appContext %>/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/<%= appContext %>/css/main.css">
-<link rel="stylesheet" href="/<%= appContext %>/css/dashboard.css">
+<link rel="stylesheet" href="/<%= appContext %>/css/styles.css">
 <% defineCSSZone('head'); %>
 
 <script src="/<%= appContext %>/js/vendor/modernizr-2.6.2.min.js"></script>
